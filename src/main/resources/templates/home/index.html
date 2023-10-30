@@ -1,0 +1,35 @@
+<!DOCTYPE html SYSTEM "http://www.thymeleaf.org/dtd/xhtml1-strict-thymeleaf-4.dtd">
+
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <link th:href="@{/css/main.css}" rel="stylesheet" />
+
+    <title>AA</title>
+</head>
+
+<body>
+<section class="filme-list"  th:each="filme : ${movies}" >
+    <div class="filme-list-card">
+        <a class="filme-list-link">
+
+                <span th:if="${filme.poster != 'N/A'}">
+                    <img th:src="${filme.poster}" />
+                </span>
+            <span th:if="${filme.poster == 'N/A' && filme.poster == null}" >
+                    <img src="/img-padrao/padrao.png" alt="Imagem Padrão" />
+                </span>
+            <h2 class="filme-name" th:text="${filme.title}"></h2>
+            <h2 class="filme-data" th:text="'Lançamento: '+${filme.year}"></h2>
+
+            <form th:action="@{/buscar/{titulo}(titulo=${filme.imdbID})}" method="get">
+                <button type="submit" class="filme-button">Adicionar</button>
+            </form>
+        </a>
+    </div>
+</section>
+
+
+</body>
+</html>
