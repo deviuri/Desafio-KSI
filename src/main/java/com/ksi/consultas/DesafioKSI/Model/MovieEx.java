@@ -3,8 +3,12 @@ package com.ksi.consultas.DesafioKSI.Model;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.ksi.consultas.DesafioKSI.DTOs.MovieDTO;
 import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
 
 @Data
+@Getter
+@Setter
 public class MovieEx {
 
     private Long id;

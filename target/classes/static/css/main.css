@@ -31,6 +31,10 @@ footer {
     font-size: 20px;
 }
 
+.form-busca{
+   margin-right: 10px;
+}
+
 .filme-list-card {
     align-items: center;
     max-width: 300px;
@@ -40,7 +44,7 @@ footer {
     border-radius: 4px;
     display: flex;
     flex-direction: column;
-    height: 600px;
+    height: 610px;
     background-color: white;
     box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
 }

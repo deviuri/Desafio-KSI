@@ -14,7 +14,7 @@
 <header>
     <nav class="navbar navbar-dark bg-primary">
         <a class="nav-name navbar-brand">Navbar</a>
-        <form action="/filmes">
+        <form action="/filmes" class="form-busca">
             <input name="titulo" type="text" placeholder="Pesquisar">
             <button type="submit" class="filme-button">buscar</button>
         </form>
@@ -29,7 +29,8 @@
                 <img disabled readonly th:if="${filme.poster != null || filme.poster != 'N/A'}" th:src="${filme.poster}" class=" filme-img" alt="...">
                 <img disabled readonly th:if="${filme.poster == null || filme.poster.equals('N/A')}" th:src="@{/img-padrao/padrao.png}" class=" filme-img" alt="Sem foto">
                 <div class="">
-                    <h5 disabled readonly class="filme-name" th:text="${filme.getTitulo()}"></h5>
+                    <h5 disabled readonly class="filme-name" th:if="${filme.getTitulo().length() < 20}" th:text="${filme.getTitulo()}"></h5>
+                    <h5 disabled readonly class="filme-name" th:if="${filme.getTitulo().length() >= 20}" th:text="${filme.getTitulo().substring(0, 20)}"></h5>
                     <p disabled readonly class="filme-desc" th:if="${filme.descricao.length() < 50}" th:text="${filme.getDescricao()}"></p>
                     <p disabled readonly class="filme-desc" th:if="${filme.descricao.length() >= 50}" th:text="${filme.getDescricao().substring(0, 50)}"></p>
                 </div>
@@ -59,16 +60,21 @@
                     <li class="list-group-item filme-data" th:text="'Lançado em: '+${filme.getAno()}" disabled readonly></li>
                 </ul>
                 <div class="card-body">
-                    <a th:href="@{/editar/{titulo}(titulo=${filme.getImdbID()})}" class="card-link filme-button btn btn-primary" style="color: white; background-color: #0965c9">Editar</a>
-                    <a th:href="@{/editar/{titulo}(titulo=${filme.getImdbID()})}" class="card-link filme-button btn btn-primary" style="color: white; background-color: #e50d0d">Excluir</a>
+                    <button th:href="@{/editar/{titulo}(titulo=${filme.getImdbID()})}" class="card-link filme-button btn btn-primary" style="color: white; background-color: #0965c9">Editar</button>
+                    <button th:href="@{/editar/{titulo}(titulo=${filme.getImdbID()})}" class="card-link filme-button btn btn-primary" style="color: white; background-color: #e50d0d">Excluir</button>
                 </div>
             </div>
         </div>
     </section>
 
-    <footer >
+    <footer th:if="${movies != null}">
             <button onclick="backPage()" class="filme-button" style="align-content: center">Anterior</button>
             <button onclick="nextPage()" class="filme-button">Próxima</button>
+    </footer>
+
+    <footer th:if="${movies == null}">
+        <button onclick="backPageFavo()" class="filme-button" style="align-content: center">Anterior</button>
+        <button onclick="nextPageFavo()" class="filme-button">Próxima</button>
     </footer>
 
 </body>

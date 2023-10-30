@@ -13,7 +13,7 @@ import java.util.Optional;
 public interface MovieViaOMD {
 
     @GetMapping
-    MovieDTO getMovie(@RequestParam("i") String titulo);
+    MovieDTO getMovie(@RequestParam("i") String titulo, @RequestParam(name = "plot", defaultValue = "short", required = false) String plot);
 
     @GetMapping
     Movies getMovies(@RequestParam(name = "s", required = false) String titulo, @RequestParam(name = "page", required = false, defaultValue = "1") String page);

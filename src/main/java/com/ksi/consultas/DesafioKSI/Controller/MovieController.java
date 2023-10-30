@@ -6,6 +6,8 @@ import com.ksi.consultas.DesafioKSI.Model.Movies;
 import com.ksi.consultas.DesafioKSI.Repository.MovieRepository;
 import com.ksi.consultas.DesafioKSI.Service.MovieService;
 import jakarta.validation.Valid;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -28,15 +30,15 @@ public class MovieController {
     }
 
     @GetMapping("buscar/{titulo}")
-    public MovieDTO getMovie(@PathVariable() String titulo, Model model) {
-        MovieDTO movieDTO = service.get(titulo);
+    public MovieDTO getMovie(@PathVariable() String titulo, @RequestParam(required = false) String plot, Model model) {
+        MovieDTO movieDTO = service.get(titulo, plot);
         model.addAttribute("movie", movieDTO);
         return movieDTO;
     }
 
     @GetMapping()
-    public String getAllByRepository(Model model) {
-        List<MovieDTO> movieDTO = service.getAll();
+    public String getAllByRepository(Pageable pageable, Model model, @RequestParam(name = "size",defaultValue = "8", required = false) int size) {
+        Page<MovieDTO> movieDTO = service.getAll(pageable);
 
         model.addAttribute("movie", movieDTO);
 
@@ -44,14 +46,15 @@ public class MovieController {
     }
 
     @GetMapping("/filmes")
-    public String getMovies(@RequestParam String titulo, @RequestParam(required = false) String page, Model model) {
+    public String getMovies(@RequestParam String titulo, @RequestParam(required = false) String page, @RequestParam(required = false) String plot, Model model) {
         Movies movies = service.getMovies(titulo, page);
 
         List<MovieEx> movieExes = movies.getMovies();
 
+
         if (movieExes != null) {
             movieExes.forEach(x -> {
-                service.getDTO(x.getImdbID());
+                service.getDTO(x.getImdbID(), plot);
                 x.setDescricao(service.getDTO(x.getImdbID()).getDescricao());
                 x.setNomeDiretor(service.getDTO(x.getImdbID()).getNomeDiretor());
             });
@@ -65,15 +68,14 @@ public class MovieController {
     }
 
     @GetMapping("editar/{titulo}")
-    public ModelAndView edit(@PathVariable String titulo){
-        ModelAndView mv = new ModelAndView("filme/editarFilme");
-        MovieDTO movieDTO = service.get(titulo);
-        mv.addObject("filme", movieDTO);
+    public String edit(@PathVariable String titulo, @RequestParam(required = false) String plot, Model model){
+        MovieDTO movieDTO = service.get(titulo, plot);
+        model.addAttribute("filme", movieDTO);
 
-        return mv;
+        return "filme/filmesLista";
     }
 
-    @PostMapping(value = "editar/{id}")
+    @PostMapping("editar/{id}")
     public String edit(@PathVariable long id, @Valid MovieDTO movie, BindingResult result, RedirectAttributes redirect) {
 
         if (result.hasErrors()){

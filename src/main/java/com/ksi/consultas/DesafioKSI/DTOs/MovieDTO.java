@@ -3,8 +3,12 @@ package com.ksi.consultas.DesafioKSI.DTOs;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.ksi.consultas.DesafioKSI.Model.Movie;
 import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
 
 @Data
+@Getter
+@Setter
 public class MovieDTO {
 
     private Long id;
@@ -61,4 +65,5 @@ public class MovieDTO {
         this.poster = movie.getPoster();
         this.imdbID = movie.getImdbID();
     }
+
 }

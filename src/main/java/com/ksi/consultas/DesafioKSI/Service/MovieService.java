@@ -6,10 +6,9 @@ import com.ksi.consultas.DesafioKSI.Model.Movie;
 import com.ksi.consultas.DesafioKSI.Model.MovieEx;
 import com.ksi.consultas.DesafioKSI.Model.Movies;
 import com.ksi.consultas.DesafioKSI.Repository.MovieRepository;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
-
-import java.util.List;
-import java.util.stream.Collectors;
 
 @Service
 public class MovieService {
@@ -17,16 +16,16 @@ public class MovieService {
     private final MovieRepository repository;
 
 
-    public MovieDTO get(String titulo){
-       MovieDTO movieDTO = this.movie.getMovie(titulo);
+    public MovieDTO get(String titulo, String plot){
+       MovieDTO movieDTO = this.movie.getMovie(titulo, plot);
 
        movieDTO.setId(insertMovie(movieDTO));
 
        return movieDTO;
     }
 
-    public MovieEx getDTO(String titulo){
-        MovieDTO movieDTO = new MovieDTO(this.movie.getMovie(titulo));
+    public MovieEx getDTO(String titulo, String plot){
+        MovieDTO movieDTO = new MovieDTO(this.movie.getMovie(titulo, plot));
 
         return new MovieEx(movieDTO);
     }
@@ -35,8 +34,8 @@ public class MovieService {
         return new MovieDTO(repository.getReferenceById(id));
     }
 
-    public List<MovieDTO> getAll(){
-        return repository.findAll().stream().map(MovieDTO::new).collect(Collectors.toList());
+    public Page<MovieDTO> getAll(Pageable paginado){
+        return repository.findAll(paginado).map(MovieDTO::new);
     }
 
     public Movies getMovies(String titulo, String page){
