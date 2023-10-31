@@ -6,33 +6,33 @@
     <link rel="stylesheet" th:href="@{/css/main.css}">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
 
-    <title>Adicionar Filme</title>
+    <title>Editar Filme</title>
 </head>
 <body>
-<form th:action="@{{id}(id=${filme.id})}" method="POST">
-    <div class="form-row">
-         <div class="form-group col-md-6">
-                <label Titulo</label>
-                <input type="text" name="titulo" th:value="${filme.getTitulo()}" />
-            </div>
-            <div class="form-group">
-                <label>Direitor</label>
-                <input type="text" name="nomeDiretor" th:value="${filme.getNomeDiretor()}" />
-            </div>
-            <div class="form-group">
-                <label>Descrição</label>
-                <textarea name="descricao" th:text="${filme.getDescricao()}"></textarea>
-            </div>
-            <div class="form-group">
-                <label>Data</label>
-                <input type="text" name="ano" th:value="${filme.getAno()}">
-            </div>
-            <div class="form-group">
-                <label>Link da imagem</label>
-                <textarea name="poster" th:text="${filme.getPoster()}"></textarea>
-       </div>
-    </div>
-    <button type="submit" class="btn btn-primary">Submit</button>
-</form>
+    <form th:action="@{{id}(id=${filme.id})}" method="POST">
+        <div class="form form-row container my-2">
+                <div class="form-control mb-4 col-4">
+                    <label Titulo</label>
+                    <input type="text" name="titulo" th:value="${filme.getTitulo()}" />
+                </div>
+                <div class="form-control mb-4 col-4">
+                    <label>Direitor</label>
+                    <input type="text" name="nomeDiretor" th:value="${filme.getNomeDiretor()}" />
+                </div>
+                <div class="form-control mb-4 col-4">
+                    <label>Descrição</label>
+                    <textarea name="descricao" th:text="${filme.getDescricao()}"></textarea>
+                </div>
+                <div class="form-control mb-4 col-4">
+                    <label>Data</label>
+                    <input type="text" name="ano" th:value="${filme.getAno()}">
+                </div>
+                <div class="form-control mb-4 col-4">
+                    <label>Link da imagem</label>
+                    <textarea name="poster" th:text="${filme.getPoster()}"></textarea>
+                </div>
+            <button type="submit" class="btn btn-primary">Salvar</button>
+        </div>
+    </form>
 </body>
 </html>

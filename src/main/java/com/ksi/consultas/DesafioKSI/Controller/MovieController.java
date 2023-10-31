@@ -11,11 +11,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.util.List;
@@ -37,12 +33,12 @@ public class MovieController {
     }
 
     @GetMapping()
-    public String getAllByRepository(Pageable pageable, Model model, @RequestParam(name = "size",defaultValue = "8", required = false) int size) {
+    public String getAllByRepository(Pageable pageable, Model model, @RequestParam(name = "size", defaultValue = "8", required = false) int size) {
         Page<MovieDTO> movieDTO = service.getAll(pageable);
 
         model.addAttribute("movie", movieDTO);
 
-        return "filme/filmesLista";
+        return "filme/Favoritos";
     }
 
     @GetMapping("/filmes")
@@ -55,35 +51,50 @@ public class MovieController {
         if (movieExes != null) {
             movieExes.forEach(x -> {
                 service.getDTO(x.getImdbID(), plot);
-                x.setDescricao(service.getDTO(x.getImdbID()).getDescricao());
-                x.setNomeDiretor(service.getDTO(x.getImdbID()).getNomeDiretor());
+                x.setNomeDiretor(service.getDTO(x.getImdbID(), plot).getNomeDiretor());
+                x.setDescricao(service.getDTO(x.getImdbID(), plot).getDescricao());
             });
 
             model.addAttribute("movies", movieExes);
 
         }
 
-
-        return "filme/filmesLista";
+        return "filme/buscarFilmes";
     }
 
-    @GetMapping("editar/{titulo}")
-    public String edit(@PathVariable String titulo, @RequestParam(required = false) String plot, Model model){
+    @GetMapping("adicionar/{titulo}")
+    public String add(@PathVariable String titulo, @RequestParam(required = false) String plot, Model model) {
         MovieDTO movieDTO = service.get(titulo, plot);
         model.addAttribute("filme", movieDTO);
 
-        return "filme/filmesLista";
+        return "filme/Favoritos";
+    }
+
+    @GetMapping("editar/{id}")
+    public String edit(@PathVariable long id, Model model) {
+        MovieDTO movieDTO = service.getOne(id);
+        model.addAttribute("filme", movieDTO);
+
+        return "filme/editarFilme";
     }
 
     @PostMapping("editar/{id}")
     public String edit(@PathVariable long id, @Valid MovieDTO movie, BindingResult result, RedirectAttributes redirect) {
 
-        if (result.hasErrors()){
+        if (result.hasErrors()) {
             redirect.addFlashAttribute("mensagem", "Verifique todos os campos");
-            return "redirect:filme/filmesLista";
+            return "filme/editarFilme"+"/"+id;
         }
+
         this.service.editMovie(id, movie);
-        return "redirect:filme/filmesLista";
+        return "filme/Favoritos";
+    }
+
+    @GetMapping("excluir/{id}")
+    public String del(@PathVariable long id){
+        service.del(id);
+
+        return "filme/Favoritos";
     }
 
 

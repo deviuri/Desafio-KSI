@@ -32,6 +32,7 @@ public class MovieDTO {
         this.ano = movie.getAno();
         this.descricao = movie.getDescricao();
         this.poster = movie.getPoster();
+        this.imdbID = movie.getImdbID();
     }
 
     public MovieDTO() {

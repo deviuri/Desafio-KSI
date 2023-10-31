@@ -1,0 +1,55 @@
+<!DOCTYPE html SYSTEM "http://www.thymeleaf.org/dtd/xhtml1-strict-thymeleaf-4.dtd">
+
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" th:href="@{/css/main.css}">
+    <script type="text/javascript" th:src="@{/js/js.js}"></script>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+
+    <title>Buscar filmes</title>
+</head>
+
+<header>
+    <nav class="navbar navbar-dark bg-primary">
+        <a class="nav-name navbar-brand">Filmes</a>
+        <form action="/filmes" class="nav-busca">
+            <input name="titulo" type="text" placeholder="Pesquisar">
+            <button type="submit" class="filme-button">buscar</button>
+        </form>
+    </nav>
+</header>
+
+<body>
+
+    <section th:if="${movies != null}">
+        <div class="filme-list" >
+            <div class="filme-list-card" th:each="filme : ${movies.subList(0, 8)}">
+                <img disabled readonly th:if="${filme.poster != null || filme.poster != 'N/A'}" th:src="${filme.poster}" class=" filme-img" alt="...">
+                <img disabled readonly th:if="${filme.poster == null || filme.poster.equals('N/A')}" th:src="@{/img-padrao/padrao.png}" class=" filme-img" alt="Sem foto">
+                <div class="">
+                    <h5 disabled readonly class="filme-name" th:if="${filme.getTitulo()}" th:text="${filme.getTitulo()}"></h5>
+                    <p disabled readonly class="filme-desc" th:if="${filme.descricao}" th:text="${filme.getDescricao()}"></p></div>
+                <ul class="list-group list-group-flush">
+                    <li class="list-group-item" th:text="'Direitor: '+${filme.getNomeDiretor()}" disabled readonly></li>
+                    <li class="list-group-item filme-data" th:text="'Lançado em: '+${filme.getAno()}" disabled readonly></li>
+                </ul>
+                <div class="card-body">
+                    <a th:href="@{/adicionar/{titulo}(titulo=${filme.getImdbID()})}" class="card-link filme-button btn btn-primary" style="color: white; background-color: #3688de">Adicionar</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+
+
+    <footer th:if="${movies != null}">
+            <button onclick="backPage()" class="filme-button" style="align-content: center">Anterior</button>
+            <button onclick="nextPage()" class="filme-button">Próxima</button>
+    </footer>
+
+
+
+</body>
+</html>

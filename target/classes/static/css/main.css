@@ -2,7 +2,7 @@
     box-sizing: border-box;
 }
 body {
-    width: 100vw;
+    width: 99vw;
     height: 100vh;
     display: flex;
     flex-direction: column;
@@ -18,8 +18,11 @@ footer {
     margin-bottom: 3px;
 }
 .filme-list {
+    margin-left: 180px;
+    margin-bottom: 80px;
+    margin-top: 70px;
     padding: 20px;
-    width: 100%;
+    width: 80vw;
     display: inline-flex;
     gap: 20px;
     flex-flow: row wrap;
@@ -31,11 +34,19 @@ footer {
     font-size: 20px;
 }
 
-.form-busca{
-   margin-right: 10px;
+.form{
+    padding: 200px;
+    width: 80vw;
+    display: inline-flex;
+    flex-flow: row wrap;
+    justify-content: space-evenly;
+    align-content: center;
+    flex-wrap: wrap;
+
 }
 
 .filme-list-card {
+    margin-top: 30px;
     align-items: center;
     max-width: 300px;
     box-sizing: border-box;
@@ -44,7 +55,7 @@ footer {
     border-radius: 4px;
     display: flex;
     flex-direction: column;
-    height: 610px;
+    height: auto;
     background-color: white;
     box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
 }
@@ -91,7 +102,15 @@ footer {
 }
 
 .nav-name {
-    margin: 10px;
+    margin-left: 35px;
+    margin-bottom: 15px;
+    margin-top: 15px;
+    color: white;
+    font-size: 20px;
+}
+
+.nav-busca{
+    margin-right: 20px;
 }
 
 
