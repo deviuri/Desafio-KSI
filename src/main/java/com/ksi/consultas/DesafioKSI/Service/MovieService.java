@@ -90,7 +90,7 @@ public class MovieService {
         if (dto.getDescricao() == null || dto.getDescricao().equals("N/A")) {
             movie.setDescricao("Sem descrição.");
         }
-        if (dto.poster == null || dto.poster.equals("N/A")) {
+        if (dto.getPoster() == null || dto.getPoster().equals("N/A")) {
             movie.setPoster("N/A");
         }
 
@@ -123,8 +123,8 @@ public class MovieService {
             movie.setDescricao(dto.getDescricao());
         }
 
-        if (dto.poster != null) {
-            movie.setPoster(dto.poster);
+        if (dto.getPoster() != null) {
+            movie.setPoster(dto.getPoster());
         }
 
         repository.save(movie);

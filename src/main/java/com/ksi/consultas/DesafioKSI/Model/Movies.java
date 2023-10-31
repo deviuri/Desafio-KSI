@@ -9,9 +9,21 @@ import java.util.List;
 public class Movies {
 
     @JsonProperty("Search")
-    public List<MovieEx> movies;
-    public String totalResults;
+    private List<MovieEx> movies;
+    @JsonProperty("totalResults")
+    private String totalResults;
     @JsonProperty("Response")
-    public String response;
+    private String response;
 
+    public List<MovieEx> getMovies() {
+        return movies;
+    }
+
+    public String getTotalResults() {
+        return totalResults;
+    }
+
+    public String getResponse() {
+        return response;
+    }
 }

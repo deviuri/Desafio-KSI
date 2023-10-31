@@ -3,12 +3,8 @@ package com.ksi.consultas.DesafioKSI.DTOs;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.ksi.consultas.DesafioKSI.Model.Movie;
 import lombok.Data;
-import lombok.Getter;
-import lombok.Setter;
 
 @Data
-@Getter
-@Setter
 public class MovieDTO {
 
     private Long id;
@@ -21,7 +17,7 @@ public class MovieDTO {
     @JsonProperty("Director")
     private String nomeDiretor;
     @JsonProperty("Poster")
-    public String poster;
+    private String poster;
     @JsonProperty("imdbID")
     private String imdbID;
 
@@ -67,4 +63,59 @@ public class MovieDTO {
         this.imdbID = movie.getImdbID();
     }
 
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public String getTitulo() {
+        return titulo;
+    }
+
+    public void setTitulo(String titulo) {
+        this.titulo = titulo;
+    }
+
+    public String getAno() {
+        return ano;
+    }
+
+    public void setAno(String ano) {
+        this.ano = ano;
+    }
+
+    public String getDescricao() {
+        return descricao;
+    }
+
+    public void setDescricao(String descricao) {
+        this.descricao = descricao;
+    }
+
+    public String getNomeDiretor() {
+        return nomeDiretor;
+    }
+
+    public void setNomeDiretor(String nomeDiretor) {
+        this.nomeDiretor = nomeDiretor;
+    }
+
+    public String getPoster() {
+        return poster;
+    }
+
+    public void setPoster(String poster) {
+        this.poster = poster;
+    }
+
+    public String getImdbID() {
+        return imdbID;
+    }
+
+    public void setImdbID(String imdbID) {
+        this.imdbID = imdbID;
+    }
 }
