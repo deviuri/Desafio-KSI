@@ -23,15 +23,7 @@
 
 <body>
 
-
-    <section th:if="${movie == null}">
-
-        <h1 style="font-size: 40px;">Nenhum filme favoritado, busque um filme na barra de pesquisa!</h1>
-
-    </section>
-
-
-    <section th:if="${movie != null}">
+    <section>
         <div class="filme-list">
             <div class="filme-list-card" th:each="filme : ${movie}">
                 <img disabled readonly th:if="${filme.poster != null || filme.poster != 'N/A'}" th:src="${filme.poster}" class=" filme-img" alt="...">
@@ -52,7 +44,7 @@
         </div>
     </section>
 
-    <footer th:if="${movie != null}">
+    <footer>
         <button onclick="backPageFavo()" class="filme-button" style="align-content: center">Anterior</button>
         <button onclick="nextPageFavo()" class="filme-button">Próxima</button>
     </footer>

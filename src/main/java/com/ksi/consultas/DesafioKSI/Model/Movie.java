@@ -25,7 +25,8 @@ public class Movie {
     @Lob
     public String poster;
 
-    public Movie(String titulo, String ano, String nomeDiretor, String descricao, String poster, String imdbID) {
+    public Movie(Long id, String titulo, String ano, String nomeDiretor, String descricao, String poster, String imdbID) {
+        this.id = id;
         this.titulo = titulo;
         this.ano = ano;
         this.nomeDiretor = nomeDiretor;
