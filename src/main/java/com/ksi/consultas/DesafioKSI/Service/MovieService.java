@@ -24,9 +24,15 @@ public class MovieService {
 
 
     public MovieDTO get(String titulo, String plot) {
-        MovieDTO movieDTO = this.movie.getMovie(titulo, plot);
-
-        movieDTO.setId(insertMovie(movieDTO));
+        MovieDTO movieDTO;
+        try {
+            movieDTO = this.movie.getMovie(titulo, plot);
+            movieDTO.setId(insertMovie(movieDTO));
+        } catch (EmptyResultDataAccessException e) {
+            throw new ResourceNotFoundException("Filme com titulo: " + titulo + " não foi encontrado!");
+        } catch (DataIntegrityViolationException | NoSuchElementException e) {
+            throw new DatabaseException("Filme não existe em nosso Banco de Dados");
+        }
 
         return movieDTO;
     }
@@ -94,26 +100,25 @@ public class MovieService {
         Movie movie = new Movie();
 
         if (!(dto.getAno() == null || dto.getAno().equals("N/A"))) {
-            movie.setAno(dto.getAno());
-        } else {
             movie.setAno("Não veio.");
         }
-
-        movie.setTitulo(dto.getTitulo());
-        if (dto.getNomeDiretor().equals("N/A")) {
+        if (dto.getNomeDiretor() == null || dto.getNomeDiretor().equals("N/A")) {
             movie.setNomeDiretor("Não encontrado");
-        } else {
-            movie.setNomeDiretor(dto.getNomeDiretor());
         }
-        if (dto.getDescricao().equals("N/A")) {
+        if (dto.getDescricao() == null || dto.getDescricao().equals("N/A")) {
             movie.setDescricao("Sem descrição.");
-        } else {
-            movie.setDescricao(dto.getDescricao());
         }
-        if (!(dto.poster == null || dto.poster.equals("N/A"))) {
-            movie.setPoster(dto.poster);
+        if (dto.poster == null || dto.poster.equals("N/A")) {
+            movie.setPoster("N/A");
         }
+
+        movie.setId(dto.getId());
+        movie.setAno(dto.getAno());
+        movie.setTitulo(dto.getTitulo());
+        movie.setNomeDiretor(dto.getNomeDiretor());
+        movie.setDescricao(dto.getDescricao());
         movie.setImdbID(dto.getImdbID());
+        movie.setPoster(dto.getPoster());
 
         repository.save(movie);
         return movie.getId();
