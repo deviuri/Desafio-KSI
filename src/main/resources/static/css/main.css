@@ -2,7 +2,7 @@
     box-sizing: border-box;
 }
 body {
-    width: 99vw;
+    width: 100vw;
     height: 100vh;
     display: flex;
     flex-direction: column;
@@ -32,17 +32,6 @@ footer {
 }
 .filme-desc {
     font-size: 20px;
-}
-
-.form{
-    padding: 200px;
-    width: 80vw;
-    display: inline-flex;
-    flex-flow: row wrap;
-    justify-content: space-evenly;
-    align-content: center;
-    flex-wrap: wrap;
-
 }
 
 .filme-list-card {
@@ -93,24 +82,22 @@ footer {
 
 .filme-button {
     background-color: deepskyblue;
-    border: none;
+    border:none;
     border-radius: 3px;
     justify-self: flex-end;
     color: white;
     font-size: 20px;
-    padding: 4px 4px;
 }
 
 .nav-name {
-    margin-left: 35px;
+    margin-left: 40px;
     margin-bottom: 15px;
     margin-top: 15px;
-    color: white;
     font-size: 20px;
 }
 
 .nav-busca{
-    margin-right: 20px;
+    margin-right: 45px;
 }
 
 

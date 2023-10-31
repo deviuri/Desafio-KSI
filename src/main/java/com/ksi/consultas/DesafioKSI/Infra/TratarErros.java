@@ -1,8 +1,8 @@
-package Infra;
+package com.ksi.consultas.DesafioKSI.Infra;
 
-import Infra.exceptions.DatabaseException;
-import Infra.exceptions.ResourceNotFoundException;
-import Infra.exceptions.StandardError;
+import com.ksi.consultas.DesafioKSI.Infra.exceptions.DatabaseException;
+import com.ksi.consultas.DesafioKSI.Infra.exceptions.ResourceNotFoundException;
+import com.ksi.consultas.DesafioKSI.Infra.exceptions.StandardError;
 import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;

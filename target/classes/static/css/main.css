@@ -2,7 +2,7 @@
     box-sizing: border-box;
 }
 body {
-    width: 99vw;
+    width: 100vw;
     height: 100vh;
     display: flex;
     flex-direction: column;
@@ -32,17 +32,6 @@ footer {
 }
 .filme-desc {
     font-size: 20px;
-}
-
-.form{
-    padding: 200px;
-    width: 80vw;
-    display: inline-flex;
-    flex-flow: row wrap;
-    justify-content: space-evenly;
-    align-content: center;
-    flex-wrap: wrap;
-
 }
 
 .filme-list-card {

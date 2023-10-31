@@ -1,4 +1,4 @@
-package Infra.exceptions;
+package com.ksi.consultas.DesafioKSI.Infra.exceptions;
 
 import lombok.Getter;
 import lombok.Setter;

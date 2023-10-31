@@ -7,8 +7,6 @@ import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import java.util.Optional;
-
 @FeignClient(url = "http://www.omdbapi.com/?apikey=4572a315&type=movie", name = "Movies")
 public interface MovieViaOMD {
 

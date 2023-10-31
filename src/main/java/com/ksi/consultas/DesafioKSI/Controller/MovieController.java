@@ -8,10 +8,14 @@ import com.ksi.consultas.DesafioKSI.Service.MovieService;
 import jakarta.validation.Valid;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.web.PageableDefault;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.util.List;
@@ -25,17 +29,10 @@ public class MovieController {
         this.service = service;
     }
 
-    @GetMapping("buscar/{titulo}")
-    public MovieDTO getMovie(@PathVariable() String titulo, @RequestParam(required = false) String plot, Model model) {
-        MovieDTO movieDTO = service.get(titulo, plot);
-        model.addAttribute("movie", movieDTO);
-        return movieDTO;
-    }
 
     @GetMapping()
-    public String getAllByRepository(Pageable pageable, Model model, @RequestParam(name = "size", defaultValue = "8", required = false) int size) {
+    public String getAllByRepository(@PageableDefault(size = 8) Pageable pageable, Model model) {
         Page<MovieDTO> movieDTO = service.getAll(pageable);
-
         model.addAttribute("movie", movieDTO);
 
         return "filme/Favoritos";
@@ -67,7 +64,13 @@ public class MovieController {
         MovieDTO movieDTO = service.get(titulo, plot);
         model.addAttribute("filme", movieDTO);
 
-        return "filme/Favoritos";
+        return "redirect:/";
+    }
+
+    @GetMapping("excluir/{id}")
+    public String del(@PathVariable long id) {
+        service.del(id);
+        return "redirect:/";
     }
 
     @GetMapping("editar/{id}")
@@ -83,19 +86,13 @@ public class MovieController {
 
         if (result.hasErrors()) {
             redirect.addFlashAttribute("mensagem", "Verifique todos os campos");
-            return "filme/editarFilme"+"/"+id;
+            return "redirect:/";
         }
 
         this.service.editMovie(id, movie);
-        return "filme/Favoritos";
+        return "redirect:/";
     }
 
-    @GetMapping("excluir/{id}")
-    public String del(@PathVariable long id){
-        service.del(id);
-
-        return "filme/Favoritos";
-    }
 
 
 }

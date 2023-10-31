@@ -1,8 +1,8 @@
 package com.ksi.consultas.DesafioKSI.Service;
 
-import Infra.exceptions.DatabaseException;
-import Infra.exceptions.NoSuchElementException;
-import Infra.exceptions.ResourceNotFoundException;
+import com.ksi.consultas.DesafioKSI.Infra.exceptions.DatabaseException;
+import com.ksi.consultas.DesafioKSI.Infra.exceptions.NoSuchElementException;
+import com.ksi.consultas.DesafioKSI.Infra.exceptions.ResourceNotFoundException;
 import com.ksi.consultas.DesafioKSI.Cliente.MovieViaOMD;
 import com.ksi.consultas.DesafioKSI.DTOs.MovieDTO;
 import com.ksi.consultas.DesafioKSI.Model.Movie;

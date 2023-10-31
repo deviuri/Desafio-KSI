@@ -15,13 +15,14 @@
     <nav class="navbar navbar-dark bg-primary">
         <a class="nav-name navbar-brand" >Favoritos</a>
         <form action="/filmes" class="nav-busca">
-            <input name="titulo" type="text" placeholder="Pesquisar">
-            <button type="submit" class="filme-button">buscar</button>
+            <input class="form-control mb-1" name="titulo" type="text" placeholder="Pesquisar">
+            <button type="submit" class="buscar-button filme-button">Buscar</button>
         </form>
     </nav>
 </header>
 
 <body>
+
     <section>
         <div class="filme-list">
             <div class="filme-list-card" th:each="filme : ${movie}">
