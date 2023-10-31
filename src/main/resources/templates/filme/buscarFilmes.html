@@ -13,7 +13,7 @@
 
 <header>
     <nav class="navbar navbar-dark bg-primary">
-        <a class="nav-name navbar-brand" >Favoritos</a>
+        <a class="nav-name navbar-brand" >Buscar filmes</a>
         <form action="/filmes" class="nav-busca">
             <input class="form-control mb-1" name="titulo" type="text" placeholder="Pesquisar">
             <button type="submit" class="buscar-button filme-button">Buscar</button>
@@ -23,7 +23,7 @@
 
 <body>
 
-    <section th:if="${movies != null}">
+    <section>
         <div class="filme-list" >
             <div class="filme-list-card" th:each="filme : ${movies.subList(0, 8)}">
                 <img disabled readonly th:if="${filme.poster != null || filme.poster != 'N/A'}" th:src="${filme.poster}" class=" filme-img" alt="...">

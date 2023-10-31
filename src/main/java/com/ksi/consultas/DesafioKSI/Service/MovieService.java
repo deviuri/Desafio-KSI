@@ -24,28 +24,16 @@ public class MovieService {
 
 
     public MovieDTO get(String titulo, String plot) {
-        MovieDTO movieDTO;
-        try {
-            movieDTO = this.movie.getMovie(titulo, plot);
-            movieDTO.setId(insertMovie(movieDTO));
-        } catch (EmptyResultDataAccessException e) {
-            throw new ResourceNotFoundException("Filme com titulo: " + titulo + " não foi encontrado!");
-        } catch (DataIntegrityViolationException | NoSuchElementException e) {
-            throw new DatabaseException("Filme não existe em nosso Banco de Dados");
-        }
+        MovieDTO movieDTO = this.movie.getMovie(titulo, plot);
+        movieDTO.setId(insertMovie(movieDTO));
 
         return movieDTO;
     }
 
     public MovieEx getDTO(String titulo, String plot) {
-        try {
+
             MovieDTO movieDTO = new MovieDTO(this.movie.getMovie(titulo, plot));
             return new MovieEx(movieDTO);
-        } catch (EmptyResultDataAccessException e) {
-            throw new ResourceNotFoundException("Filme com titulo: " + titulo + " não foi encontrado!");
-        } catch (DataIntegrityViolationException | NoSuchElementException e) {
-            throw new DatabaseException("Filme não existe em nosso Banco de Dados");
-        }
     }
 
     public Page<MovieDTO> getAll(Pageable paginado) {
@@ -53,13 +41,7 @@ public class MovieService {
     }
 
     public Movies getMovies(String titulo, String page) {
-        try {
             return this.movie.getMovies(titulo, page);
-        } catch (EmptyResultDataAccessException e) {
-            throw new ResourceNotFoundException("Filme não foi encontrado!");
-        } catch (DataIntegrityViolationException | NoSuchElementException e) {
-            throw new DatabaseException("Filme não existe em nosso Banco de Dados");
-        }
     }
 
     public void editMovie(Long id, MovieDTO dto) {

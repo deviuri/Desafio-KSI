@@ -1,7 +1,6 @@
 package com.ksi.consultas.DesafioKSI.Controller;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.ksi.consultas.DesafioKSI.DTOs.MovieDTO;
 import com.ksi.consultas.DesafioKSI.Model.Movie;
 import com.ksi.consultas.DesafioKSI.MovieDTO.CriarTestes;
 import org.junit.jupiter.api.BeforeEach;
@@ -9,7 +8,6 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 
@@ -45,19 +43,29 @@ public class MovieTeste {
     }
 
     @Test
+    public void QuandoNaoExistirMovieVaiRetornaNotFound() throws Exception{
+        mockMvc.perform(MockMvcRequestBuilders.get("/excluir/{id}", naoExisteID))
+                .andExpect(status().isNotFound());
+
+    }
+
+    @Test
+    public void QuandoNaoExistirMovieVaiRedirecionar() throws Exception{
+        mockMvc.perform(MockMvcRequestBuilders.get("/excluir/{id}", naoExisteID))
+                .andExpect(status().is3xxRedirection());
+
+    }
+
+    @Test
     public void QuandoExistirTituloVaiRedirecionar() throws Exception {
         Movie movieDTO = CriarTestes.criarMovie();
         String jsonBody = objectMapper.writeValueAsString(movieDTO);
-        mockMvc.perform(MockMvcRequestBuilders.get("/adicionar/{titulo}", movieDTO.getTitulo())
-                        .content(jsonBody)
-                        .contentType(MediaType.APPLICATION_JSON))
+        mockMvc.perform(MockMvcRequestBuilders.get("/adicionar/{titulo}", movieDTO.getTitulo()))
                         .andExpect(status().is3xxRedirection());
     }
 
 
-    @Test public void QuandoNaoExistirTituloVaiRetornaNotFound() throws Exception {
-        MovieDTO movieDTO = new MovieDTO(CriarTestes.criarMovie());
-        String jsonBody = objectMapper.writeValueAsString(movieDTO);
+    @Test public void QuandoNaoExistirTituloVaiRedirecionar() throws Exception {
         mockMvc.perform(MockMvcRequestBuilders.get("/adicionar/{titulo}", "Título que não existe") )
                 .andExpect(status().is3xxRedirection());
     }

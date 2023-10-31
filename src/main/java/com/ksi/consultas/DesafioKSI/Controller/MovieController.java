@@ -44,7 +44,6 @@ public class MovieController {
 
         List<MovieEx> movieExes = movies.getMovies();
 
-
         if (movieExes != null) {
             movieExes.forEach(x -> {
                 service.getDTO(x.getImdbID(), plot);
@@ -55,7 +54,6 @@ public class MovieController {
             model.addAttribute("movies", movieExes);
 
         }
-
         return "filme/buscarFilmes";
     }
 

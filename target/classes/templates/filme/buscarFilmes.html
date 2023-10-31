@@ -23,9 +23,9 @@
 
 <body>
 
-    <section th:if="${movies != null}">
+    <section>
         <div class="filme-list" >
-            <div class="filme-list-card" th:each="filme : ${movies.subList(0, 8)}">
+            <div class="filme-list-card" th:each="filme : ${movies.subList(0, 8).clear()}">
                 <img disabled readonly th:if="${filme.poster != null || filme.poster != 'N/A'}" th:src="${filme.poster}" class=" filme-img" alt="...">
                 <img disabled readonly th:if="${filme.poster == null || filme.poster.equals('N/A')}" th:src="@{/img-padrao/padrao.png}" class=" filme-img" alt="Sem foto">
                 <div class="">
