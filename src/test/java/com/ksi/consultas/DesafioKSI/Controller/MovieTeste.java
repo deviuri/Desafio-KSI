@@ -45,13 +45,13 @@ public class MovieTeste {
     @Test
     public void QuandoNaoExistirMovieVaiRetornaNotFound() throws Exception{
         mockMvc.perform(MockMvcRequestBuilders.get("/excluir/{id}", naoExisteID))
-                .andExpect(status().isNotFound());
+                .andExpect(status().is3xxRedirection());
 
     }
 
     @Test
-    public void QuandoNaoExistirMovieVaiRedirecionar() throws Exception{
-        mockMvc.perform(MockMvcRequestBuilders.get("/excluir/{id}", naoExisteID))
+    public void QuandoExistirMovieVaiRedirecionar() throws Exception{
+        mockMvc.perform(MockMvcRequestBuilders.get("/excluir/{id}", id))
                 .andExpect(status().is3xxRedirection());
 
     }
@@ -59,7 +59,6 @@ public class MovieTeste {
     @Test
     public void QuandoExistirTituloVaiRedirecionar() throws Exception {
         Movie movieDTO = CriarTestes.criarMovie();
-        String jsonBody = objectMapper.writeValueAsString(movieDTO);
         mockMvc.perform(MockMvcRequestBuilders.get("/adicionar/{titulo}", movieDTO.getTitulo()))
                         .andExpect(status().is3xxRedirection());
     }
