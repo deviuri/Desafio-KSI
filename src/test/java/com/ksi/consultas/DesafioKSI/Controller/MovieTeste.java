@@ -54,4 +54,12 @@ public class MovieTeste {
                         .andExpect(status().is3xxRedirection());
     }
 
+
+    @Test public void QuandoNaoExistirTituloVaiRetornaNotFound() throws Exception {
+        MovieDTO movieDTO = new MovieDTO(CriarTestes.criarMovie());
+        String jsonBody = objectMapper.writeValueAsString(movieDTO);
+        mockMvc.perform(MockMvcRequestBuilders.get("/adicionar/{titulo}", "Título que não existe") )
+                .andExpect(status().is3xxRedirection());
+    }
+
 }
